@@ -33,7 +33,7 @@ class Lesson(models.Model):
         max_length=150, verbose_name="Урок", help_text="Укажите название урока"
     )
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, verbose_name="Курс", help_text="Выберите курс"
+        Course, on_delete=models.CASCADE, **NULLABLE, verbose_name="Курс", help_text="Выберите курс"
     )
     description = models.TextField(
         **NULLABLE, verbose_name="Описание урока", help_text="Укажите описание урока"
