@@ -1,6 +1,13 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db import models
 
+
+METHOD_CHOISES = [
+    ('CASH', 'оплата наличными'),
+    ('TRAN', 'перевод на счет')
+]
+
+User = get_user_model()
 
 NULLABLE = {"blank": True, "null": True}
 
@@ -9,6 +16,7 @@ class Course(models.Model):
     """
     Модель курса, содержит поля: название,превью (картинка), описание
     """
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     name = models.CharField(
         max_length=120, verbose_name="Название куса", help_text="Укажите название курса"
     )
@@ -31,6 +39,7 @@ class Lesson(models.Model):
     """
     Модель урока, содержит поля: название, курс, описание, превью (картинка), ссылка на видео
     """
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     name = models.CharField(
         max_length=150, verbose_name="Урок", help_text="Укажите название урока"
     )
@@ -57,3 +66,12 @@ class Lesson(models.Model):
         verbose_name = "Урок"
         verbose_name_plural = "Уроки"
 
+
+class Payment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    date_of_pay = models.DateField(auto_now=True, verbose_name='дата оплаты')
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, **NULLABLE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, **NULLABLE)
+    amount = models.PositiveIntegerField()
+    method = models.CharField(max_length=4, choices=METHOD_CHOISES)
+    filterset_fields = ['category', 'in_stock']
