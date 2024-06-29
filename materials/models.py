@@ -1,4 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
+
 
 NULLABLE = {"blank": True, "null": True}
 
@@ -33,7 +35,7 @@ class Lesson(models.Model):
         max_length=150, verbose_name="Урок", help_text="Укажите название урока"
     )
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, **NULLABLE, verbose_name="Курс", help_text="Выберите курс"
+        Course, on_delete=models.CASCADE, **NULLABLE, verbose_name="Курс", help_text="Выберите курс", related_name="lesson"
     )
     description = models.TextField(
         **NULLABLE, verbose_name="Описание урока", help_text="Укажите описание урока"
@@ -54,3 +56,4 @@ class Lesson(models.Model):
     class Meta:
         verbose_name = "Урок"
         verbose_name_plural = "Уроки"
+
