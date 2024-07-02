@@ -75,3 +75,8 @@ class Payment(models.Model):
     amount = models.PositiveIntegerField()
     method = models.CharField(max_length=4, choices=METHOD_CHOISES)
     filterset_fields = ['category', 'in_stock']
+
+
+    class Meta:
+        verbose_name = "Платеж"
+        verbose_name_plural = "Платежи"
