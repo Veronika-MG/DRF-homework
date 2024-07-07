@@ -19,7 +19,7 @@ def create_price(product, amount):
 
 def create_session(price):
     session = stripe.checkout.Session.create(
-        success_url=reverse('materials:lessons-list'),
+        success_url='http://localhost:8000/materials/courses/',
         line_items=[{'price': price.get('id'), 'quantity': 1}],
         mode='payment'
     )
