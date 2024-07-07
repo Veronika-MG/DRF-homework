@@ -26,7 +26,7 @@ class CourseDetailSerializer(ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('name', 'description', 'image', 'count_lesson_in_course', 'lesson')
+        fields = ('name', 'description', 'image', 'count_lesson_in_course', 'lesson', "subscription",)
         validators = [YouTubeLinkOnlyValidator(fields=['name', 'description'])]
 
 
@@ -41,6 +41,8 @@ class CourseSerializer(ModelSerializer):
 
 
 class PaymentSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    method = serializers.CharField(default=serializers.CreateOnlyDefault('TRAN'))
     class Meta:
         model = models.Payment
         fields = '__all__'
