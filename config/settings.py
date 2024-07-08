@@ -18,7 +18,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -73,11 +73,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": os.getenv("ENGINE"),
-        "NAME": os.getenv("NAME"),  # Название БД
+        "NAME": os.getenv("POSTGRES_DB"),  # Название БД
         "USER": os.getenv("POSTGRES_USER"),  # Пользователь для подключения
-        "PASSWORD": os.getenv("PASSWORD"),  # Пароль для этого пользователя
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),  # Пароль для этого пользователя
         "HOST": os.getenv("HOST"),  # Адрес, на котором развернут сервер БД
-        "PORT": os.getenv("PORT"),  # Порт, на котором работает сервер БД
+        "PORT": os.getenv("POSTGRES_PORT"),  # Порт, на котором работает сервер БД
     }
 }
 
